@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khojlo – Local tutors, services & jobs in Delhi</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--ink:#1d1b16;--mute:#6b665c;--line:#e8e2d6;--brand:#d9480f;--brand2:#fff1e8;--ok:#2b8a3e;--okbg:#e6f6ea}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5}
+.bar{max-width:980px;margin:auto;display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;color:var(--brand);cursor:pointer}
+nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+nav button{background:none;border:0;padding:7px 10px;border-radius:8px;font:inherit;color:var(--mute);cursor:pointer}
+nav button.on{background:var(--brand2);color:var(--brand);font-weight:600}
+main{max-width:980px;margin:auto;padding:14px}
+h1{font-size:26px;margin:6px 0}h2{font-size:19px;margin:18px 0 8px}
+.hero{background:linear-gradient(135deg,#fff1e8,#fff);border:1px solid var(--line);border-radius:16px;padding:18px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input,select,textarea{font:inherit;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0}
+textarea{width:100%;min-height:70px}
+.row>input,.row>select{flex:1 1 140px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.sec{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.5}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 12px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.card h3{margin:0;font-size:16px}
+.meta{color:var(--mute);font-size:13px}
+.badge{display:inline-block;background:var(--okbg);color:var(--ok);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px}
+.badge.pro{background:#fff3bf;color:#8a6d00}
+.price{font-weight:700}
+.chat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;height:360px;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;padding:8px 12px;border-radius:14px}
+.msg.bot{background:var(--brand2);align-self:flex-start}.msg.me{background:#e7f0ff;align-self:flex-end}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.price-card{border:2px solid var(--brand);border-radius:16px;padding:16px;background:#fff}
+.ok{color:var(--ok);font-weight:600}.warn{background:#fff8e1;border:1px solid #f1d98a;border-radius:10px;padding:8px 12px;font-size:13px}
+.hide{display:none}
+.lock{filter:blur(4px);user-select:none}
+footer{max-width:980px;margin:20px auto;padding:0 14px 30px;color:var(--mute);font-size:12px}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <span class="logo" onclick="go('home')">Khojlo</span>
+  <nav id="nav"></nav>
+</div></header>
+<main id="app"></main>
+<footer>Demo mode: data lives in this page only. Payments, SMS/WhatsApp and the database are not connected yet.</footer>
+
+<script>
+/* ---------- DATA LAYER (demo, in-memory). Swap with Supabase calls later ---------- */
+const CATS=[
+ {id:1,slug:'tutor',name:'Tutors',kind:'tutor'},
+ {id:2,slug:'admission-consultant',name:'Admission Consultants',kind:'consultancy'},
+ {id:3,slug:'assignment-help',name:'Assignment Help',kind:'service'},
+ {id:4,slug:'repair',name:'Repair & Maintenance',kind:'service'},
+ {id:5,slug:'hawker',name:'Hawker / Delivery Jobs',kind:'job'}];
+let uid=100;const nid=()=>'id'+(uid++);
+const DB={
+ providers:[
+  {id:'p1',category_id:1,name:'Rohit Sharma',phone:'98100 11111',headline:'Maths & Physics, Class 9-12 (CBSE)',subjects:['maths','physics'],area:'Dwarka',mode:'both',rate:600,exp:8,verified:true,plan:'pro',free:3,rating:4.8,rc:32},
+  {id:'p2',category_id:1,name:'Anita Verma',phone:'98100 22222',headline:'English & Hindi, Class 6-10',subjects:['english','hindi'],area:'Rohini',mode:'home',rate:400,exp:5,verified:true,plan:'free',free:3,rating:4.6,rc:18},
+  {id:'p3',category_id:1,name:'Sandeep Kumar',phone:'98100 33333',headline:'JEE/NEET Chemistry',subjects:['chemistry','jee','neet'],area:'Laxmi Nagar',mode:'online',rate:800,exp:10,verified:true,plan:'pro',free:3,rating:4.9,rc:51},
+  {id:'p4',category_id:1,name:'Pooja Singh',phone:'98100 44444',headline:'Primary classes, all subjects',subjects:['maths','evs','english'],area:'Dwarka',mode:'home',rate:300,exp:3,verified:false,plan:'free',free:1,rating:4.3,rc:7},
+  {id:'p5',category_id:2,name:'Neha Gupta',phone:'98100 55555',headline:'DU & IPU admission guidance',subjects:['du','ipu','cuet'],area:'Karol Bagh',mode:'both',rate:0,exp:6,verified:true,plan:'pro',free:3,rating:4.7,rc:22},
+  {id:'p6',category_id:3,name:'Arjun Mehta',phone:'98100 66666',headline:'Assignments, PPTs, lab reports',subjects:['assignment','ppt','report'],area:'Janakpuri',mode:'online',rate:0,exp:4,verified:false,plan:'free',free:3,rating:4.4,rc:12},
+  {id:'p7',category_id:4,name:'Imran Electricals',phone:'98100 77777',headline:'AC, fridge, washing machine repair',subjects:['ac','fridge','washing machine'],area:'Dwarka',mode:'home',rate:0,exp:12,verified:true,plan:'pro',free:3,rating:4.5,rc:40}],
+ enquiries:[],leads:[],
+ reviews:[{pid:'p1',who:'Mrs. Kapoor',r:5,t:'My son went from 62% to 88% in maths.'},{pid:'p3',who:'Aman',r:5,t:'Best chemistry teacher for NEET.'},{pid:'p7',who:'Ritu',r:4,t:'Came on time, fixed AC same day.'}],
+ jobs:[
+  {id:'j1',category_id:5,title:'Newspaper hawker – morning route',desc:'3 hours, 5 days/week',area:'Dwarka',pay:'₹9,000/mo',phone:'98200 00001'},
+  {id:'j2',category_id:5,title:'Delivery partner (bike required)',desc:'Local grocery delivery',area:'Rohini',pay:'₹15,000-20,000/mo',phone:'98200 00002'},
+  {id:'j3',category_id:4,title:'AC technician helper',desc:'Training provided',area:'Janakpuri',pay:'₹12,000/mo',phone:'98200 00003'}]
+};
+let me='p2'; // demo "logged in" provider
+const catName=id=>(CATS.find(c=>c.id==id)||{}).name||'';
+const stars=r=>'★'.repeat(Math.round(r))+'☆'.repeat(5-Math.round(r));
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function matchProviders(e){
+ const words=e.requirement.toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>2);
+ return DB.providers.filter(p=>p.category_id==e.category_id)
+  .map(p=>{let s=0;words.forEach(w=>{if(p.subjects.some(x=>x.includes(w)||w.includes(x))||p.headline.toLowerCase().includes(w))s+=2});
+   if(e.area&&p.area.toLowerCase()===e.area.toLowerCase())s+=3;if(p.verified)s+=1;s+=p.rating/5;return{p,s}})
+  .sort((a,b)=>b.s-a.s).slice(0,5).map(x=>x.p);
+}
+function createEnquiry(e){
+ e.id=nid();DB.enquiries.push(e);
+ const ps=matchProviders(e);
+ ps.forEach(p=>{let unlocked=false;
+  if(p.plan==='pro')unlocked=true;else if(p.free>0){p.free--;unlocked=true}
+  DB.leads.push({id:nid(),eid:e.id,pid:p.id,unlocked})});
+ return ps;
+}
+
+/* ---------- ROUTER ---------- */
+const NAV=[['home','Find'],['jobs','Jobs'],['enquire','Post enquiry'],['register','For providers'],['dash','Dashboard'],['pricing','Pricing']];
+let view='home',filt={cat:0,q:'',area:''};
+function go(v){view=v;render();window.scrollTo(0,0)}
+function render(){
+ document.getElementById('nav').innerHTML=NAV.map(([k,l])=>`<button class="${view===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('');
+ ({home:vHome,jobs:vJobs,enquire:vEnquire,register:vRegister,dash:vDash,pricing:vPricing})[view]();
+ if(view==='register')startChat();
+}
+const $=id=>document.getElementById(id);
+const app=h=>{$('app').innerHTML=h};
+
+/* ---------- HOME / SEARCH ---------- */
+function vHome(){
+ app(`<div class="hero"><h1>Find trusted tutors, repairs & more in Delhi</h1>
+ <div class="meta">Verified local providers. Request a call back in 30 seconds.</div>
+ <div class="row" style="margin-top:12px">
+  <input id="q" placeholder="What do you need? e.g. maths class 10" value="${esc(filt.q)}">
+  <input id="area" placeholder="Area e.g. Dwarka" value="${esc(filt.area)}">
+  <button class="btn" onclick="doSearch()">Search</button></div>
+ <div class="chips"><span class="chip ${!filt.cat?'on':''}" onclick="setCat(0)">All</span>${CATS.filter(c=>c.kind!=='job').map(c=>`<span class="chip ${filt.cat==c.id?'on':''}" onclick="setCat(${c.id})">${c.name}</span>`).join('')}
+ <span class="chip" onclick="go('jobs')">Jobs →</span></div></div>
+ <div id="results"></div>`);
+ showResults();
+}
+function setCat(i){filt.cat=i;vHome()}
+function doSearch(){filt.q=$('q').value;filt.area=$('area').value;showResults()}
+function showResults(){
+ const q=filt.q.toLowerCase().split(/\s+/).filter(Boolean),a=filt.area.toLowerCase();
+ let list=DB.providers.filter(p=>(!filt.cat||p.category_id==filt.cat)&&(!a||p.area.toLowerCase().includes(a))&&
+  q.every(w=>(p.headline+p.subjects.join(' ')+p.name+catName(p.category_id)).toLowerCase().includes(w)));
+ list.sort((x,y)=>(y.plan==='pro')-(x.plan==='pro')||y.rating-x.rating);
+ $('results').innerHTML=`<h2>${list.length} provider${list.length==1?'':'s'}</h2>`+(list.map(p=>`<div class="card">
+  <h3>${esc(p.name)}${p.verified?'<span class="badge">Verified</span>':''}${p.plan==='pro'?'<span class="badge pro">Top listed</span>':''}</h3>
+  <div>${esc(p.headline)}</div>
+  <div class="meta">${catName(p.category_id)} · ${esc(p.area)} · ${p.mode==='both'?'Home & online':p.mode} · ${p.exp} yrs</div>
+  <div class="meta"><span style="color:#f59f00">${stars(p.rating)}</span> ${p.rating} (${p.rc})${p.rate?` · <span class="price">₹${p.rate}/hr</span>`:''}</div>
+  ${DB.reviews.filter(r=>r.pid===p.id).slice(0,1).map(r=>`<div class="meta">“${esc(r.t)}” – ${esc(r.who)}</div>`).join('')}
+  <div style="margin-top:8px"><button class="btn sm" onclick="callback('${p.id}')">Get call back</button></div></div>`).join('')||'<div class="card">No match. Try <a href="#" onclick="go(\'enquire\');return false">posting an enquiry</a> and we will find someone.</div>');
+}
+function callback(pid){const p=DB.providers.find(x=>x.id===pid);
+ app(`<h1>Request call back</h1><div class="card"><b>${esc(p.name)}</b><div class="meta">${esc(p.headline)}</div></div>`+enqForm(p.category_id,p.subjects.join(', '),p.area));
+}
+
+/* ---------- ENQUIRY ---------- */
+function enqForm(cat,req,area){return `<div class="card"><div class="row">
+ <select id="ec">${CATS.filter(c=>c.kind!=='job').map(c=>`<option value="${c.id}" ${c.id==cat?'selected':''}>${c.name}</option>`).join('')}</select>
+ <input id="en" placeholder="Your name"><input id="ep" placeholder="Phone (10 digits)" inputmode="numeric"></div>
+ <div class="row" style="margin-top:8px"><input id="ea" placeholder="Area" value="${esc(area||'')}"><input id="eb" placeholder="Budget ₹ (optional)" inputmode="numeric"></div>
+ <textarea id="er" style="margin-top:8px" placeholder="What do you need? e.g. Class 10 maths, 3 days a week">${esc(req||'')}</textarea>
+ <div id="eerr" class="meta" style="color:#c92a2a"></div>
+ <button class="btn" onclick="submitEnq()">Submit enquiry</button></div><div id="eres"></div>`}
+function vEnquire(){app(`<h1>Tell us what you need</h1><div class="meta">We send your enquiry to the best matching providers.</div>`+enqForm(1,'',''))}
+function submitEnq(){
+ const e={category_id:+$('ec').value,name:$('en').value.trim(),phone:$('ep').value.replace(/\D/g,''),area:$('ea').value.trim(),budget:+$('eb').value||null,requirement:$('er').value.trim()};
+ if(!e.name||e.phone.length!==10||e.requirement.length<5){$('eerr').textContent='Enter name, a 10-digit phone and a short requirement.';return}
+ const ps=createEnquiry(e);
+ $('eres').innerHTML=`<div class="card"><div class="ok">Sent to ${ps.length} provider${ps.length==1?'':'s'}.</div><div class="meta">They will call you on ${esc(e.phone)}.</div>${ps.map(p=>`<div>• ${esc(p.name)} – ${esc(p.area)}</div>`).join('')}</div>`;
+}
+
+/* ---------- JOBS ---------- */
+function vJobs(){
+ app(`<h1>Jobs & gigs</h1><div class="meta">Hawker, delivery, repair helper and more.</div>
+ ${DB.jobs.map(j=>`<div class="card"><h3>${esc(j.title)}</h3><div>${esc(j.desc)}</div><div class="meta">${catName(j.category_id)} · ${esc(j.area)} · <b>${esc(j.pay)}</b></div><div class="meta">Contact: ${esc(j.phone)}</div></div>`).join('')}
+ <h2>Post a job</h2><div class="card"><div class="row"><input id="jt" placeholder="Job title"><select id="jc">${CATS.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></div>
+ <div class="row" style="margin-top:8px"><input id="ja" placeholder="Area"><input id="jp" placeholder="Pay e.g. ₹10,000/mo"><input id="jph" placeholder="Contact phone"></div>
+ <textarea id="jd" style="margin-top:8px" placeholder="Details"></textarea><button class="btn" onclick="postJob()">Post job</button></div>`);
+}
+function postJob(){const t=$('jt').value.trim(),ph=$('jph').value.replace(/\D/g,'');if(!t||ph.length!==10)return;
+ DB.jobs.unshift({id:nid(),category_id:+$('jc').value,title:t,desc:$('jd').value,area:$('ja').value,pay:$('jp').value,phone:ph});vJobs()}
+
+/* ---------- PROVIDER REGISTRATION (voice + text agent) ---------- */
+const STEPS=[
+ {k:'name',q:'Hi! I will build your profile. What is your name?'},
+ {k:'phone',q:'Your 10-digit mobile number?'},
+ {k:'category',q:'What do you offer? Say one: tutor, admission consultant, assignment help, repair.'},
+ {k:'subjects',q:'Which subjects or services? e.g. maths, physics, JEE'},
+ {k:'area',q:'Which area of Delhi are you based in?'},
+ {k:'mode',q:'Do you teach/serve at home, online, or both?'},
+ {k:'rate',q:'Your rate per hour in rupees? (say 0 if not applicable)'},
+ {k:'exp',q:'How many years of experience?'},
+ {k:'bio',q:'Last one: tell parents/customers about yourself in a sentence or two.'}];
+let draft={},si=0,rec=null;
+const nums=s=>{const m=String(s).replace(/,/g,'').match(/\d+/);return m?+m[0]:NaN};
+function vRegister(){
+ app(`<h1>List your service</h1><div class="meta">Talk or type. Our assistant builds your profile. Free to list, 3 free leads, then ₹499/month.</div>
+ <div class="chat" id="chat" style="margin-top:10px"></div>
+ <div class="row" style="margin-top:8px"><input id="ci" placeholder="Type your answer" onkeydown="if(event.key==='Enter')send()">
+ <button class="btn sec" id="mic" onclick="mic()">🎤 Speak</button><button class="btn" onclick="send()">Send</button></div>
+ <div id="regout"></div><div class="meta" style="margin-top:6px">Voice needs a browser with speech recognition (Chrome). Hindi and English both work.</div>`);
+}
+function say(t,who){const c=$('chat');if(!c)return;c.insertAdjacentHTML('beforeend',`<div class="msg ${who}">${esc(t)}</div>`);c.scrollTop=c.scrollHeight}
+function startChat(){draft={};si=0;say(STEPS[0].q,'bot')}
+function mic(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){say('Voice is not available here. Please type your answer.','bot');return}
+ try{rec=new SR();rec.lang='en-IN';rec.interimResults=false;
+  rec.onresult=e=>{$('ci').value=e.results[0][0].transcript;send()};
+  rec.onerror=()=>say('Could not hear you. Please type instead.','bot');
+  rec.start();$('mic').textContent='Listening…'; rec.onend=()=>{$('mic').textContent='🎤 Speak'};
+ }catch(e){say('Microphone is blocked. Please type your answer.','bot')}
+}
+function send(){
+ const v=$('ci').value.trim();if(!v||si>=STEPS.length)return;$('ci').value='';
+ const s=STEPS[si];let val=v,err='';
+ if(s.k==='phone'){val=v.replace(/\D/g,'').slice(-10);if(val.length!==10)err='Please give a 10-digit number.'}
+ if(s.k==='category'){const l=v.toLowerCase();const c=l.includes('admission')||l.includes('consult')?2:l.includes('assign')?3:l.includes('repair')?4:l.includes('tutor')||l.includes('teach')?1:0;if(!c)err='Please say tutor, admission consultant, assignment help or repair.';val=c}
+ if(s.k==='subjects')val=v.toLowerCase().split(/,|\band\b|\baur\b/).map(x=>x.trim()).filter(Boolean);
+ if(s.k==='mode'){const l=v.toLowerCase();val=l.includes('both')||(l.includes('home')&&l.includes('online'))?'both':l.includes('online')?'online':l.includes('home')?'home':'';if(!val)err='Say home, online or both.'}
+ if(s.k==='rate'||s.k==='exp'){val=nums(v);if(isNaN(val))err='Please give a number.';else if(s.k==='rate'&&val>100000)err='That looks too high. Rate per hour in rupees?'}
+ say(v,'me');
+ if(err){say(err,'bot');return}
+ draft[s.k]=val;si++;
+ if(si<STEPS.length)say(STEPS[si].q,'bot');else finishReg();
+}
+function finishReg(){
+ const d=draft;say('Great! Here is your profile. Review and publish.','bot');
+ $('regout').innerHTML=`<div class="card"><h3>${esc(d.name)}</h3><div>${esc(d.subjects.join(', '))}</div><div class="meta">${catName(d.category)} · ${esc(d.area)} · ${d.mode} · ${d.exp} yrs${d.rate?` · ₹${d.rate}/hr`:''}</div><div>${esc(d.bio)}</div>
+ <div class="warn" style="margin:8px 0">Includes 3 free leads. After that, ₹499/month for unlimited leads and top listing.</div>
+ <button class="btn" onclick="publish()">Publish my profile</button></div>`;
+}
+function publish(){
+ const d=draft,p={id:nid(),category_id:d.category,name:d.name,phone:d.phone,headline:`${d.subjects.slice(0,3).join(', ')}`,subjects:d.subjects,area:d.area,mode:d.mode,rate:d.rate,exp:d.exp,bio:d.bio,verified:false,plan:'free',free:3,rating:0,rc:0};
+ DB.providers.push(p);me=p.id;$('regout').innerHTML=`<div class="card"><div class="ok">You are live!</div><div class="meta">Verification call will follow. Check your dashboard for leads.</div><button class="btn" onclick="go('dash')">Open dashboard</button></div>`;
+}
+
+/* ---------- DASHBOARD ---------- */
+function vDash(){
+ const p=DB.providers.find(x=>x.id===me),ls=DB.leads.filter(l=>l.pid===me);
+ app(`<h1>Dashboard</h1><div class="card"><h3>${esc(p.name)} ${p.plan==='pro'?'<span class="badge pro">Pro</span>':''}</h3>
+ <div class="meta">${p.plan==='pro'?'Unlimited leads and top listing.':`Free leads left: <b>${p.free}</b>`}</div>
+ ${p.plan==='pro'?'':'<button class="btn sm" style="margin-top:6px" onclick="go(\'pricing\')">Upgrade ₹499/mo</button>'}
+ <div class="meta" style="margin-top:6px">Demo: viewing as <select onchange="me=this.value;vDash()">${DB.providers.map(x=>`<option value="${x.id}" ${x.id===me?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div>
+ <h2>Leads (${ls.length})</h2>`+(ls.map(l=>{const e=DB.enquiries.find(x=>x.id===l.eid);
+ return `<div class="card"><div><b>${esc(e.requirement)}</b></div><div class="meta">${catName(e.category_id)} · ${esc(e.area||'')}${e.budget?` · budget ₹${e.budget}`:''}</div>
+ <div>${l.unlocked?`<span class="ok">${esc(e.name)} – ${esc(e.phone)}</span>`:`<span class="lock">${esc(e.name)} – 98xxx xxxxx</span> <button class="btn sm" onclick="go('pricing')">Unlock</button>`}</div></div>`}).join('')||'<div class="card meta">No leads yet. Submit an enquiry from the “Post enquiry” tab to test the flow.</div>'));
+}
+
+/* ---------- PRICING ---------- */
+function vPricing(){
+ app(`<h1>Pricing for providers</h1><div class="grid">
+ <div class="card"><h3>Free</h3><div class="price">₹0</div><ul><li>Profile listing</li><li>3 free leads</li><li>Normal ranking</li></ul></div>
+ <div class="price-card"><h3>Pro</h3><div class="price">₹499 / month</div><ul><li>Unlimited student & customer leads</li><li>Top listing + “Top listed” badge</li><li>WhatsApp lead alerts</li><li>Priority verification</li></ul>
+ <button class="btn" onclick="upgrade()">Subscribe (demo)</button><div id="pm" class="meta" style="margin-top:6px"></div></div></div>`);
+}
+function upgrade(){const p=DB.providers.find(x=>x.id===me);p.plan='pro';
+ DB.leads.filter(l=>l.pid===me).forEach(l=>l.unlocked=true);
+ $('pm').innerHTML='<span class="ok">Demo only: Pro activated for '+esc(p.name)+'. Real payments (Razorpay/UPI) are not connected.</span>'}
+render();
+</script>
+</body>
+</html>
