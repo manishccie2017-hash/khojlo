@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04060d">
+<title>Khojlo – Ride the lines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04060d;--ink:#eef1f8;--mute:#8d97b0;--line:#1c2440}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:400 18px/1.55 Mukta,system-ui,sans-serif;overflow-x:hidden}
+#gl{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0}
+.nogl #gl{display:none}
+.nogl{background:radial-gradient(1200px 700px at 30% 20%,#132048,#04060d 70%) fixed}
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.09;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ animation:grain 1s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-2%,-4%)}100%{transform:translate(0,0)}}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.75) 100%)}
+header{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,48px);mix-blend-mode:difference}
+.logo{font:900 22px Archivo,sans-serif;font-stretch:120%;color:#fff;text-decoration:none;display:flex;gap:8px;align-items:center}
+.logo i{display:inline-flex;gap:3px}.logo i b{width:6px;height:18px;border-radius:2px}
+header a.nav{color:#fff;text-decoration:none;font-weight:600;font-size:16px;border-bottom:2px solid #fff;padding-bottom:2px}
+main{position:relative;z-index:2}
+.s{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(18px,6vw,96px)}
+h1,h2{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;letter-spacing:-.035em;margin:0}
+h1{font-size:clamp(84px,21vw,300px);line-height:.88;margin-bottom:.22em}
+h2{font-size:clamp(40px,8vw,104px);line-height:.95;max-width:12ch;margin-bottom:.35em}
+.ch{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.16em;margin-bottom:-.16em}
+.ch b{display:inline-block;font-weight:inherit;transform:translateY(110%);transition:transform 1.1s cubic-bezier(.16,.9,.2,1);transition-delay:calc(var(--i)*65ms + 250ms)}
+.ready .ch b{transform:none}
+.lead{font-size:clamp(19px,2.2vw,24px);color:#c3cbe0;max-width:36ch}
+.hero .cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;background:#fff;color:#04060d;border:0;border-radius:999px;padding:14px 26px;font:800 17px Archivo,sans-serif;font-stretch:110%;text-decoration:none;cursor:pointer}
+.btn:hover{background:#dfe5f3}
+.ghost{color:#fff;font-weight:600;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.4)}
+.hint{position:absolute;bottom:28px;left:clamp(18px,6vw,96px);color:var(--mute);font-size:14px;display:flex;gap:10px;align-items:center}
+.hint span{width:1px;height:34px;background:linear-gradient(#fff,transparent);animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero{position:relative}
+.cats{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.cat{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);opacity:.35;transition:opacity .5s}
+.cat.on{opacity:1}
+.cat i{width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 22px var(--c);align-self:center}
+.cat strong{font:900 clamp(30px,5.6vw,72px)/1 Archivo,sans-serif;font-stretch:122%;letter-spacing:-.03em}
+.cat span{grid-column:2;color:var(--mute)}
+.ask{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;font:800 clamp(24px,4.4vw,48px)/1.25 Archivo,sans-serif;font-stretch:115%;margin:10px 0 26px}
+.ask input{flex:1 1 220px;min-width:0;background:transparent;border:0;border-bottom:4px solid #fff;color:#fff;font:inherit;padding:2px 2px 6px;border-radius:0}
+.ask input::placeholder{color:#4d5874}
+.small{color:var(--mute);font-size:16px;margin-top:22px}
+.small a{color:#fff}
+:focus-visible{outline:3px solid #7fb0ff;outline-offset:3px;border-radius:4px}
+.fade{position:fixed;inset:0;background:var(--bg);z-index:20;pointer-events:none;opacity:1;transition:opacity .9s ease}
+.ready .fade{opacity:0}
+.leaving .fade{opacity:1;transition-duration:.45s}
+@media(max-width:560px){.ask span{flex:0 0 100%}.ask input{flex:1 1 100%}.hint{display:none}}
+@media(prefers-reduced-motion:reduce){.grain,.hint span{animation:none}.ch b,.fade{transition:none}.ch b{transform:none}}
+.lead,.cat span{text-shadow:0 1px 18px #04060d,0 0 4px #04060d}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="vig"></div><div class="grain"></div>
+<header><a class="logo" href="index.html" data-go><i><b style="background:#f6b800"></b><b style="background:#e5457f"></b><b style="background:#1b6bd1"></b></i>Khojlo</a>
+<a class="nav" href="index.html" data-go>Open directory</a></header>
+
+<main>
+ <section class="s hero">
+  <h1 aria-label="Khoj lo."><span aria-hidden="true" id="t1"></span></h1>
+  <p class="lead">Tutors, repair, admissions and jobs across Delhi. Pick a line, find a person, get a call back.</p>
+  <div class="cta"><a class="btn" href="#where" id="ride">Find someone near you</a><a class="ghost" href="index.html?view=register" data-go>I'm a tutor or provider</a></div>
+  <div class="hint"><span></span>Scroll to ride the lines</div>
+ </section>
+
+ <section class="s">
+  <h2>Five lines across the city.</h2>
+  <ul class="cats">
+   <li class="cat" data-i="0" style="--c:#f6b800"><i></i><strong>Tutors</strong><span>Home and online, from class 1 to JEE and NEET.</span></li>
+   <li class="cat" data-i="1" style="--c:#e5457f"><i></i><strong>Admissions</strong><span>DU, IPU and CUET guidance from people who've done it.</span></li>
+   <li class="cat" data-i="2" style="--c:#7b3fa0"><i></i><strong>Assignments</strong><span>Projects, presentations and lab reports.</span></li>
+   <li class="cat" data-i="3" style="--c:#1b6bd1"><i></i><strong>Repair</strong><span>AC, fridge, washing machine, wiring.</span></li>
+   <li class="cat" data-i="4" style="--c:#1e9e5a"><i></i><strong>Jobs</strong><span>Hawker, delivery and helper roles near you.</span></li>
+  </ul>
+ </section>
+
+ <section class="s">
+  <h2>Every stop is a person you can call.</h2>
+  <p class="lead">Tell us what you need. We send it to up to five providers near you. They call, you compare, you choose. It's free for customers.</p>
+ </section>
+
+ <section class="s" id="where">
+  <h2>Where to?</h2>
+  <form class="ask" id="f"><span>I need</span><input id="q" aria-label="What you need" placeholder="a maths tutor"><span>near</span><input id="a" aria-label="Your area" placeholder="Dwarka"><button class="btn" type="submit">Search</button></form>
+  <p class="small">Teach or fix things for a living? <a href="index.html?view=register" data-go>List your service</a>. Free to start.</p>
+ </section>
+</main>
+<div class="fade"></div>
+
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile=Math.min(innerWidth,innerHeight)<700;
+
+/* headline letters */
+const t1=document.getElementById('t1');
+t1.innerHTML=['Khoj','lo.'].map(w=>w.split('').map((c,i)=>`<span class="ch"><b style="--i:${i}">${c}</b></span>`).join('')).join(' ');
+
+/* page transitions */
+function leave(url){document.body.classList.add('leaving');setTimeout(()=>{location.href=url},reduce?0:450)}
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();leave(a.getAttribute('href'))}));
+document.getElementById('ride').addEventListener('click',e=>{e.preventDefault();document.getElementById('where').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
+ const p=new URLSearchParams();const q=document.getElementById('q').value.trim(),a=document.getElementById('a').value.trim();
+ if(q)p.set('q',q);if(a)p.set('area',a);leave('index.html'+(p.toString()?'?'+p:''))});
+
+/* category highlight */
+let hi=-1;
+const cats=[...document.querySelectorAll('.cat')];
+function updateHi(){const mid=innerHeight*.5;let best=-1,bd=1e9;
+ cats.forEach(c=>{const r=c.getBoundingClientRect();const d=Math.abs((r.top+r.bottom)/2-mid);if(r.bottom>0&&r.top<innerHeight&&d<bd&&d<innerHeight*.35){bd=d;best=+c.dataset.i}});
+ cats.forEach(c=>c.classList.toggle('on',+c.dataset.i===best||best<0&&false));hi=best;}
+
+/* ---------- WebGL scene (original, no libraries) ---------- */
+const cv=document.getElementById('gl');
+const gl=cv.getContext('webgl',{antialias:true,alpha:false,powerPreference:'high-performance'});
+if(!gl){document.body.classList.add('nogl');addEventListener('scroll',updateHi,{passive:true});updateHi();requestAnimationFrame(()=>document.body.classList.add('ready'));return}
+
+const COL=[[.965,.722,0],[.898,.271,.498],[.6,.35,.85],[.2,.5,1],[.118,.75,.4]];
+const MAP=[
+ [[-13,-6],[-8,-6],[-4,-2],[0,-2],[4,2],[8,2],[13,7]],
+ [[-11,9],[-6,4],[-2,4],[2,0],[2,-6],[7,-11]],
+ [[-13,0],[-6,0],[-2,-4],[4,-4],[9,-9]],
+ [[-6,12],[-2,8],[-2,2],[4,-2],[10,-2],[13,-6]],
+ [[9,11],[4,6],[-3,6],[-8,-1],[-8,-11]]];
+const H=(x,z,l)=>Math.sin(x*.32+l)*.9+Math.cos(z*.27-l*.7)*.7+l*.18;
+// subdivide lines into smooth 3D polylines
+const LINES=MAP.map((pts,l)=>{const out=[];for(let i=0;i<pts.length-1;i++){const[a,b]=[pts[i],pts[i+1]];const n=14;
+ for(let k=0;k<n;k++){const t=k/n,x=a[0]+(b[0]-a[0])*t,z=a[1]+(b[1]-a[1])*t;out.push([x,H(x,z,l),z])}}
+ const e=pts[pts.length-1];out.push([e[0],H(e[0],e[1],l),e[1]]);
+ const len=[0];for(let i=1;i<out.length;i++)len.push(len[i-1]+Math.hypot(out[i][0]-out[i-1][0],out[i][1]-out[i-1][1],out[i][2]-out[i-1][2]));
+ return{p:out,len,total:len[len.length-1],stations:pts.map(s=>[s[0],H(s[0],s[1],l),s[1]])}});
+
+function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(s);return s}
+function prog(vs,fs){const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw gl.getProgramInfoLog(p);
+ const o={p,a:{},u:{}};const na=gl.getProgramParameter(p,gl.ACTIVE_ATTRIBUTES),nu=gl.getProgramParameter(p,gl.ACTIVE_UNIFORMS);
+ for(let i=0;i<na;i++){const n=gl.getActiveAttrib(p,i).name;o.a[n]=gl.getAttribLocation(p,n)}
+ for(let i=0;i<nu;i++){const n=gl.getActiveUniform(p,i).name;o.u[n]=gl.getUniformLocation(p,n)}return o}
+
+/* ribbon lines, screen-space width, soft glow */
+const RIB=prog(`
+attribute vec3 aA,aB,aC;attribute float aSide,aEnd,aLine;
+uniform mat4 uVP;uniform vec2 uRes;uniform float uW,uHi;
+varying vec3 vC;varying float vS,vK;
+void main(){vec4 a=uVP*vec4(aA,1.),b=uVP*vec4(aB,1.);vec4 p=aEnd<.5?a:b;
+ vec2 d=normalize(b.xy/b.w*uRes-a.xy/a.w*uRes);vec2 n=vec2(-d.y,d.x);
+ float k=uHi<-.5?1.:(abs(uHi-aLine)<.5?1.9:.28);
+ p.xy+=n*aSide*(2.*uW*mix(1.,1.6,step(1.5,k))/uRes)*p.w;
+ gl_Position=p;vC=aC;vS=aSide;vK=k;}`,`
+precision highp float;varying vec3 vC;varying float vS,vK;uniform float uI;uniform vec2 uM,uRes;
+void main(){float e=1.-abs(vS);float m=1.+1.4*smoothstep(260.,0.,distance(gl_FragCoord.xy,uM*uRes));
+ gl_FragColor=vec4(vC*pow(e,1.6)*uI*vK*m,1.);}`);
+const rib=[];
+LINES.forEach((L,l)=>{for(let i=0;i<L.p.length-1;i++){const A=L.p[i],B=L.p[i+1],c=COL[l];
+ for(const[s,en]of[[-1,0],[1,0],[-1,1],[-1,1],[1,0],[1,1]])rib.push(...A,...B,...c,s,en,l)}});
+const ribBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,ribBuf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(rib),gl.STATIC_DRAW);
+const RIBN=rib.length/12;
+
+/* points: stations, trains, dust */
+const PT=prog(`
+attribute vec3 aP,aC;attribute float aS;uniform mat4 uVP;uniform float uPx;uniform vec2 uRes;varying vec3 vC;varying float vM;uniform vec2 uM;
+void main(){gl_Position=uVP*vec4(aP,1.);gl_PointSize=max(1.,aS*uPx/gl_Position.w);vC=aC;
+ vec2 sc=(gl_Position.xy/gl_Position.w*.5+.5)*uRes;vM=1.+1.2*smoothstep(260.,0.,distance(sc,uM*uRes));}`,`
+precision highp float;varying vec3 vC;varying float vM;uniform float uI;
+void main(){float d=length(gl_PointCoord-.5);float a=smoothstep(.5,0.,d);gl_FragColor=vec4(vC*a*a*uI*vM,1.);}`);
+const ptBuf=gl.createBuffer();
+function stationData(){const o=[];LINES.forEach((L,l)=>L.stations.forEach(s=>{o.push(...s,...COL[l],2.6);o.push(...s,1,1,1,.9)}));return o}
+const stations=stationData(),STN=stations.length/7;
+const dust=[];const ND=mobile?500:1400;
+for(let i=0;i<ND;i++){const r=Math.random();dust.push((Math.random()-.5)*70,(Math.random()-.5)*30-2,(Math.random()-.5)*70,.35+r*.3,.4+r*.3,.6+r*.4,.15+Math.random()*.35)}
+const NT=mobile?4:7,TRAIL=6;
+function trainData(t){const o=[];LINES.forEach((L,l)=>{for(let k=0;k<NT;k++){
+ const sp=1.6+((k*37+l*13)%10)/6;const dir=k%2?1:-1;
+ for(let j=0;j<TRAIL;j++){let d=((t*sp*dir+k*L.total/NT-j*.22*dir)%L.total+L.total)%L.total;
+  let i=1;while(i<L.len.length-1&&L.len[i]<d)i++;const f=(d-L.len[i-1])/(L.len[i]-L.len[i-1]||1);
+  const A=L.p[i-1],B=L.p[i];const c=COL[l],w=1-j/TRAIL;
+  o.push(A[0]+(B[0]-A[0])*f,A[1]+(B[1]-A[1])*f+.02,A[2]+(B[2]-A[2])*f,c[0]*.6+.4*w,c[1]*.6+.4*w,c[2]*.6+.4*w,(j?1.1:1.8)*w)}}});return o}
+
+/* math */
+function persp(f,a,n,fa){const t=1/Math.tan(f/2);return[t/a,0,0,0,0,t,0,0,0,0,(fa+n)/(n-fa),-1,0,0,2*fa*n/(n-fa),0]}
+function look(e,c,u){let z=[e[0]-c[0],e[1]-c[1],e[2]-c[2]];let l=Math.hypot(...z);z=z.map(v=>v/l);
+ let x=[u[1]*z[2]-u[2]*z[1],u[2]*z[0]-u[0]*z[2],u[0]*z[1]-u[1]*z[0]];l=Math.hypot(...x);x=x.map(v=>v/l);
+ const y=[z[1]*x[2]-z[2]*x[1],z[2]*x[0]-z[0]*x[2],z[0]*x[1]-z[1]*x[0]];
+ return[x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-(x[0]*e[0]+x[1]*e[1]+x[2]*e[2]),-(y[0]*e[0]+y[1]*e[1]+y[2]*e[2]),-(z[0]*e[0]+z[1]*e[1]+z[2]*e[2]),1]}
+function mul(a,b){const o=new Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+j]*b[i*4+k];o[i*4+j]=s}return o}
+const KEY=[ // camera path: [eye, target]
+ [[3,15,19],[1,0,0]],
+ [[-14,7,13],[-3,0,-1]],
+ [[12,9,9],[2,0,-1]],
+ [[.01,40,.02],[0,0,0]]];
+const lerp=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+const ease=t=>t*t*(3-2*t);
+function camAt(s){s=Math.min(.9999,Math.max(0,s))*(KEY.length-1);const i=Math.floor(s),t=ease(s-i);
+ return[lerp(KEY[i][0],KEY[i+1][0],t),lerp(KEY[i][1],KEY[i+1][1],t)]}
+
+/* state */
+let W=0,Hh=0,dpr=Math.min(devicePixelRatio||1,mobile?1:1.6),mx=.5,my=.5,tmx=.5,tmy=.5,camS=0,hiS=-1;
+const dbg=new URLSearchParams(location.search).get('s');
+function size(){W=innerWidth;Hh=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(Hh*dpr);gl.viewport(0,0,cv.width,cv.height)}
+size();addEventListener('resize',size);
+addEventListener('pointermove',e=>{tmx=e.clientX/W;tmy=1-e.clientY/Hh},{passive:true});
+function scrollS(){const t=document.documentElement.scrollHeight-innerHeight;return t>0?scrollY/t:0}
+addEventListener('scroll',updateHi,{passive:true});
+
+gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.disable(gl.DEPTH_TEST);
+function attr(P,name,size,stride,off){const l=P.a[name];if(l===undefined||l<0)return;gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,size,gl.FLOAT,false,stride*4,off*4)}
+function drawPts(data,n,px,I,VP){gl.useProgram(PT.p);gl.bindBuffer(gl.ARRAY_BUFFER,ptBuf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW);
+ attr(PT,'aP',3,7,0);attr(PT,'aC',3,7,3);attr(PT,'aS',1,7,6);
+ gl.uniformMatrix4fv(PT.u.uVP,false,VP);gl.uniform1f(PT.u.uPx,px*dpr);gl.uniform1f(PT.u.uI,I);gl.uniform2f(PT.u.uRes,cv.width,cv.height);gl.uniform2f(PT.u.uM,mx,my);
+ gl.drawArrays(gl.POINTS,0,n)}
+const t0=performance.now();
+function frame(now){
+ const t=reduce?0:(now-t0)/1000;
+ const target=dbg!==null?+dbg:scrollS();
+ camS+=reduce||dbg!==null?(target-camS):(target-camS)*.06;
+ mx+=(tmx-mx)*.08;my+=(tmy-my)*.08;
+ hiS+=((hi<0?-1:hi)-hiS)*(hi<0?1:1);
+ let[eye,tgt]=camAt(camS);
+ eye=[eye[0]+(mx-.5)*4+Math.sin(t*.15)*1.2,eye[1]+(my-.5)*2.5,eye[2]+Math.cos(t*.12)*1.2];
+ const VP=mul(persp(Math.PI/180*(mobile?58:46),W/Hh,.1,200),look(eye,tgt,[0,1,0]));
+ gl.clearColor(.016,.024,.05,1);gl.clear(gl.COLOR_BUFFER_BIT);
+ // ribbons: wide glow, then bright core
+ gl.useProgram(RIB.p);gl.bindBuffer(gl.ARRAY_BUFFER,ribBuf);
+ attr(RIB,'aA',3,12,0);attr(RIB,'aB',3,12,3);attr(RIB,'aC',3,12,6);attr(RIB,'aSide',1,12,9);attr(RIB,'aEnd',1,12,10);attr(RIB,'aLine',1,12,11);
+ gl.uniformMatrix4fv(RIB.u.uVP,false,VP);gl.uniform2f(RIB.u.uRes,cv.width,cv.height);gl.uniform2f(RIB.u.uM,mx,my);gl.uniform1f(RIB.u.uHi,hi);
+ gl.uniform1f(RIB.u.uW,(mobile?10:16)*dpr);gl.uniform1f(RIB.u.uI,.32);gl.drawArrays(gl.TRIANGLES,0,RIBN);
+ gl.uniform1f(RIB.u.uW,3*dpr);gl.uniform1f(RIB.u.uI,1.5);gl.drawArrays(gl.TRIANGLES,0,RIBN);
+ for(const l of [0,1,2,3,4,5])gl.disableVertexAttribArray(l);
+ drawPts(dust,ND,40,.55,VP);
+ drawPts(stations,STN,90,.9,VP);
+ const tr=trainData(t);drawPts(tr,tr.length/7,70,1.2,VP);
+ for(const l of [0,1,2])gl.disableVertexAttribArray(l);
+ requestAnimationFrame(frame);
+}
+updateHi();requestAnimationFrame(frame);
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('ready')));
+})();
+</script>
+</body>
+</html>

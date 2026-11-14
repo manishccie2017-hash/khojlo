@@ -236,7 +236,7 @@ async function vHome(){
  <div class="steps"><div class="step"><b>Tell us what you need</b><span class="mute">Search above, or post an enquiry with your area and budget.</span></div>
  <div class="step"><b>We pick the best matches</b><span class="mute">Up to 5 nearby providers get your request.</span></div>
  <div class="step"><b>They call you</b><span class="mute">Talk, compare, and choose. No fee for customers.</span></div></div>
- <div class="foot">Khojlo is in beta. Are you a tutor or service provider? <a href="#" onclick="go('register');return false">List your service</a>.</div>`);
+ <div class="foot">Khojlo is in beta. Are you a tutor or service provider? <a href="#" onclick="go('register');return false">List your service</a>. Or <a href="cinematic.html">ride the lines</a>.</div>`);
  startCine();
  await showResults();
 }
@@ -433,7 +433,9 @@ function vPricing(){
  try{const {data}=await sb.auth.getSession();user=data.session?data.session.user:null}catch(e){}
  sb.auth.onAuthStateChange((_e,s)=>{user=s?s.user:null;renderNav()});
  try{const {data}=await sb.from('categories').select('*').order('id');CATS=data||[]}catch(e){}
- go('home');
+ const P=new URLSearchParams(location.search);filt.q=P.get('q')||'';filt.area=P.get('area')||'';
+ const V=P.get('view');go(['home','jobs','enquire','register','dash','pricing','auth'].includes(V)?V:'home');
+ if(filt.q||filt.area)setTimeout(()=>{const r=$('results');if(r)r.scrollIntoView()},600);
 })();
 </script>
 </body>
