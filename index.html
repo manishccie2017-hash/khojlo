@@ -3,54 +3,167 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Khojlo – Local tutors, services & jobs in Delhi</title>
+<meta name="theme-color" content="#0e1b3d">
+<title>Khojlo – Tutors, repairs and jobs near you in Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#faf7f2;--card:#fff;--ink:#1d1b16;--mute:#6b665c;--line:#e8e2d6;--brand:#d9480f;--brand2:#fff1e8;--ok:#2b8a3e;--okbg:#e6f6ea}
-*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5}
-.bar{max-width:980px;margin:auto;display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
-.logo{font-weight:800;font-size:20px;color:var(--brand);cursor:pointer}
-nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
-nav button{background:none;border:0;padding:7px 10px;border-radius:8px;font:inherit;color:var(--mute);cursor:pointer}
-nav button.on{background:var(--brand2);color:var(--brand);font-weight:600}
-main{max-width:980px;margin:auto;padding:14px}
-h1{font-size:26px;margin:6px 0}h2{font-size:19px;margin:18px 0 8px}
-.hero{background:linear-gradient(135deg,#fff1e8,#fff);border:1px solid var(--line);border-radius:16px;padding:18px}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-input,select,textarea{font:inherit;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0}
-textarea{width:100%;min-height:70px}
-.row>input,.row>select{flex:1 1 140px}
-.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
-.btn.sec{background:#fff;color:var(--brand);border:1px solid var(--brand)}
-.btn.sm{padding:6px 12px;font-size:13px}
+:root{--ink:#0e1b3d;--paper:#f3f5f8;--card:#fff;--rule:#dde2ea;--mute:#566176;--ok:#12805c;--okbg:#e2f4ec;--focus:#1b6bd1;
+ --yellow:#f6b800;--blue:#1b6bd1;--violet:#7b3fa0;--pink:#e5457f;--green:#1e9e5a;--red:#d7263d}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 17px/1.55 Mukta,system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+h1,h2,h3,.logo{font-family:Archivo,system-ui,sans-serif;font-stretch:118%;letter-spacing:-.01em}
+h1{font-size:clamp(30px,6.4vw,54px);line-height:1.04;font-weight:800;margin:0 0 6px}
+h2{font-size:clamp(21px,3.6vw,28px);line-height:1.15;font-weight:800;margin:34px 0 12px}
+h3{font-size:19px;line-height:1.2;font-weight:700;margin:0;font-stretch:108%}
+p{margin:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+button{font:inherit;cursor:pointer}
+a{color:var(--blue)}
+
+/* header */
+header{background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:10}
+.bar{max-width:1040px;margin:auto;display:flex;align-items:center;gap:14px;padding:8px 16px}
+.logo{font-size:23px;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo i{display:inline-flex;gap:3px}.logo i b{width:7px;height:20px;border-radius:2px;display:block}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+nav::-webkit-scrollbar{display:none}
+nav button{background:none;border:0;padding:12px 11px;color:var(--mute);font-weight:600;white-space:nowrap;border-bottom:4px solid transparent}
+nav button.on{color:var(--ink);border-bottom-color:var(--ink)}
+nav button.login{color:var(--ink);font-weight:700}
+main{max-width:1040px;margin:auto;padding:18px 16px 40px}
+
+/* hero */
+.hero{padding:22px 0 6px}
+.ask{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font:700 clamp(20px,4.4vw,30px)/1.3 Archivo,sans-serif;font-stretch:112%;margin-top:14px}
+.ask input{flex:1 1 200px;min-width:0;border:0;border-bottom:4px solid var(--ink);background:transparent;font:inherit;color:var(--ink);padding:2px 2px 4px;border-radius:0}
+.ask input::placeholder{color:#9aa3b5;font-weight:600}
+@media(max-width:560px){.ask span{flex:0 0 100%;margin-top:8px}.ask input{flex:1 1 100%}.ask .btn{width:100%;margin-top:10px}}
+.route{display:flex;height:8px;margin:20px 0 14px;border-radius:4px;overflow:hidden;transform-origin:left;animation:draw .9s cubic-bezier(.2,.7,.2,1) both}
+.route span{flex:1}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.route{animation:none}}
+.sub{color:var(--mute);max-width:56ch}
+.lines{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.line{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--rule);background:#fff;border-radius:999px;padding:6px 14px 6px 8px;font-weight:600;color:var(--ink)}
+.line i{width:18px;height:18px;border-radius:50%;background:var(--c);display:block}
+.line.on{border-color:var(--c);background:var(--c);color:var(--ct)}
+.line.on i{background:#fff}
+.stations{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;color:var(--mute);font-size:15px;align-items:center}
+.stations button{border:1px solid var(--rule);background:#fff;border-radius:6px;padding:2px 10px;color:var(--ink)}
+
+/* buttons / forms */
+.btn{background:var(--ink);color:#fff;border:2px solid var(--ink);border-radius:8px;padding:10px 18px;font-weight:700}
+.btn:hover{background:#1c2f63}
+.btn.sec{background:#fff;color:var(--ink)}
+.btn.sm{padding:7px 14px;font-size:15px}
 .btn:disabled{opacity:.5}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 12px;cursor:pointer;font-size:13px}
-.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
-.card h3{margin:0;font-size:16px}
-.meta{color:var(--mute);font-size:13px}
-.badge{display:inline-block;background:var(--okbg);color:var(--ok);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px}
-.badge.pro{background:#fff3bf;color:#8a6d00}
-.price{font-weight:700}
-.chat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;height:360px;overflow:auto;display:flex;flex-direction:column;gap:8px}
-.msg{max-width:85%;padding:8px 12px;border-radius:14px}
-.msg.bot{background:var(--brand2);align-self:flex-start}.msg.me{background:#e7f0ff;align-self:flex-end}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
-.price-card{border:2px solid var(--brand);border-radius:16px;padding:16px;background:#fff}
-.ok{color:var(--ok);font-weight:600}.warn{background:#fff8e1;border:1px solid #f1d98a;border-radius:10px;padding:8px 12px;font-size:13px}
-.hide{display:none}
+input,select,textarea{font:inherit;color:var(--ink);padding:11px 12px;border:2px solid var(--rule);border-radius:8px;background:#fff;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+textarea{width:100%;min-height:84px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>input,.row>select{flex:1 1 150px}
+.err{color:#b4232f;font-size:15px;min-height:22px}
+
+/* provider cards */
+.pcard,.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;margin:12px 0}
+.pcard{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:16px 16px 16px 20px;border-left:8px solid var(--c);position:relative}
+.av{width:48px;height:48px;border-radius:50%;background:var(--c);color:var(--ct);display:grid;place-items:center;font:800 21px Archivo,sans-serif;grid-row:span 2}
+.ptop{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.hl{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;grid-column:2}
+.tag{font-size:14px;font-weight:600;background:var(--paper);border-radius:6px;padding:1px 9px;color:var(--mute)}
+.tag.stn{color:var(--ink);background:#fff;border:1px solid var(--rule);display:inline-flex;align-items:center;gap:6px}
+.tag.stn::before{content:"";width:9px;height:9px;border-radius:50%;border:3px solid var(--c);background:#fff}
+.pside{grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:10px;padding-top:12px;border-top:1px solid var(--rule)}
+.rate{font:800 22px Archivo,sans-serif;font-stretch:112%}.rate small{font:600 14px Mukta;color:var(--mute)}
+.rt{color:var(--mute);font-size:15px}.rt b{color:var(--ink)}
+.pside .btn{margin-left:auto}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;border-radius:6px;padding:1px 8px}
+.badge.ok{background:var(--okbg);color:var(--ok)}
+.badge.top{background:var(--ink);color:#fff}
+@media(min-width:720px){
+ .pcard{grid-template-columns:auto 1fr auto;align-items:center}
+ .av{grid-row:span 2}
+ .pside{grid-column:3;grid-row:1/span 2;flex-direction:column;align-items:flex-end;border:0;margin:0;padding:0;gap:4px}
+ .pside .btn{margin:6px 0 0}
+}
+.card{padding:16px}
+.warn{background:#fff6d6;border:1px solid #f0d36b;border-radius:8px;padding:9px 12px;font-size:15px}
+.ok{color:var(--ok);font-weight:700}
 .lock{filter:blur(4px);user-select:none}
-footer{max-width:980px;margin:20px auto;padding:0 14px 30px;color:var(--mute);font-size:12px}
+.mute{color:var(--mute)}
+
+/* how it works */
+.steps{position:relative;margin:6px 0 0;padding-left:38px;display:grid;gap:22px}
+.steps::before{content:"";position:absolute;left:11px;top:10px;bottom:10px;width:6px;background:linear-gradient(var(--yellow),var(--pink),var(--blue));border-radius:3px}
+.step{position:relative}
+.step::before{content:"";position:absolute;left:-34px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;border:5px solid var(--ink)}
+.step b{display:block;font:700 18px Archivo,sans-serif;font-stretch:108%}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--rule);color:var(--mute);font-size:14px}
+
+/* chat */
+.chat{background:#fff;border:2px solid var(--rule);border-radius:12px;padding:12px;height:360px;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:86%;padding:8px 13px;border-radius:12px}
+.msg.bot{background:#e9edf5;align-self:flex-start}.msg.me{background:var(--ink);color:#fff;align-self:flex-end}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.plan{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px;border-top:8px solid var(--rule)}
+.plan.pro{border-top-color:var(--yellow)}
+.plan ul{padding-left:20px;margin:10px 0}
+.price{font:800 26px Archivo,sans-serif;font-stretch:112%}
+
+/* ===== cinematic landing (home only) ===== */
+body{overflow-x:hidden}
+.bleed{width:100vw;margin-left:calc(50% - 50vw)}
+.inner{max-width:1040px;margin:auto;padding:0 16px}
+body.home main{padding-top:0}
+body.home header{background:#070b18;border-bottom-color:#18213d}
+body.home .logo{color:#fff}
+body.home nav button{color:#9aa6c0}
+body.home nav button.on,body.home nav button.login{color:#fff}
+body.home nav button.on{border-bottom-color:#fff}
+.cine{position:relative;background:#070b18;color:#fff;min-height:min(90vh,760px);display:flex;align-items:flex-end;overflow:hidden}
+.cine::before{content:"";position:absolute;inset:0;background:radial-gradient(540px circle at var(--mx,50%) var(--my,38%),rgba(27,107,209,.30),transparent 62%);pointer-events:none}
+.cine canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.cine .inner{position:relative;width:100%;padding-top:96px;padding-bottom:40px;pointer-events:none}
+.cine .inner>*{pointer-events:auto}
+.cine h1{font-size:clamp(70px,19vw,220px);line-height:.92;font-weight:900;font-stretch:125%;letter-spacing:-.035em;margin:0 0 .26em;color:#fff}
+.ch{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.ch b{display:inline-block;font-weight:inherit;animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 70ms + 150ms)}
+@keyframes rise{from{transform:translateY(110%)}to{transform:none}}
+.cine .sub{color:#b4bdd3;max-width:44ch;font-size:19px}
+.cine .ask{color:#fff;margin-top:20px}
+.cine .ask input{color:#fff;border-bottom-color:#fff}
+.cine .ask input::placeholder{color:#66728f}
+.cine .btn{background:#fff;color:#070b18;border-color:#fff}
+.cine .btn:hover{background:#e3e8f4}
+.cine .stations{color:#8591ad}
+.cine .stations button{background:transparent;border-color:#2a3558;color:#e8ecf6}
+.cine :focus-visible{outline-color:#7fb0ff}
+.dark{--px:max(16px,calc((100vw - 1040px)/2 + 16px));background:#070b18;color:#fff;padding:6px 0 48px}
+.dark h2{color:#fff;padding:0 var(--px);margin:0 0 14px}
+.lrow{display:flex;width:100%;align-items:center;justify-content:space-between;background:transparent;border:0;border-top:1px solid #1d2748;color:#fff;padding:16px var(--px);font:800 clamp(26px,6.2vw,58px)/1.05 Archivo,sans-serif;font-stretch:118%;text-align:left;transition:background .25s,color .25s,padding-left .25s}
+.dark .lrow:last-child{border-bottom:1px solid #1d2748}
+.lrow i{width:clamp(18px,3vw,30px);height:clamp(18px,3vw,30px);border-radius:50%;background:var(--c);flex:none;margin-left:16px;transition:background .25s}
+.lrow:hover,.lrow:focus-visible,.lrow.on{background:var(--c);color:var(--ct);padding-left:calc(var(--px) + 14px)}
+.lrow:hover i,.lrow:focus-visible i,.lrow.on i{background:var(--ct)}
+#results{padding-top:2px}
+@media(prefers-reduced-motion:no-preference){
+ #app.enter{animation:fadein .4s ease both}
+ @keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+@media(prefers-reduced-motion:reduce){.ch b{animation:none}}
+@media(max-width:560px){.cine .inner{padding-top:72px}}
 </style>
 </head>
 <body>
 <header><div class="bar">
-  <span class="logo" onclick="go('home')">Khojlo</span>
-  <nav id="nav"></nav>
+  <span class="logo" onclick="go('home')" role="link" tabindex="0"><i><b style="background:var(--yellow)"></b><b style="background:var(--pink)"></b><b style="background:var(--blue)"></b></i>Khojlo</span>
+  <nav id="nav" aria-label="Main"></nav>
 </div></header>
 <main id="app"></main>
-<footer>Khojlo beta. Payments and WhatsApp alerts are coming soon.</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
@@ -62,26 +175,30 @@ const $=id=>document.getElementById(id);
 const app=h=>{$('app').innerHTML=h};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const catName=id=>(CATS.find(c=>c.id==id)||{}).name||'';
-const stars=r=>'★'.repeat(Math.round(r))+'☆'.repeat(5-Math.round(r));
+const LINE={tutor:['#f6b800','#0e1b3d'],'admission-consultant':['#e5457f','#fff'],'assignment-help':['#7b3fa0','#fff'],repair:['#1b6bd1','#fff'],hawker:['#1e9e5a','#fff']};
+const lineVars=id=>{const s=(CATS.find(c=>c.id==id)||{}).slug;const l=LINE[s]||['#0e1b3d','#fff'];return `--c:${l[0]};--ct:${l[1]}`};
+const stars=r=>'★ '+Number(r).toFixed(1);
 const errMsg=e=>esc((e&&e.message)||'Something went wrong. Please try again.');
 const clean=s=>String(s||'').replace(/[,()%*\\]/g,' ').trim();
+const STATIONS=['Dwarka','Rohini','Janakpuri','Laxmi Nagar','Karol Bagh','Saket'];
 
 /* ---------- ROUTER ---------- */
-function navItems(){return [['home','Find'],['jobs','Jobs'],['enquire','Post enquiry'],['register','For providers'],['dash','Dashboard'],['pricing','Pricing']]}
+const NAV=[['home','Find'],['jobs','Jobs'],['enquire','Post enquiry'],['register','For providers'],['dash','Dashboard'],['pricing','Pricing']];
 function renderNav(){
- $('nav').innerHTML=navItems().map(([k,l])=>`<button class="${view===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')+
-  (user?`<button onclick="logout()">Log out</button>`:`<button onclick="go('auth')">Log in</button>`);
+ $('nav').innerHTML=NAV.map(([k,l])=>`<button class="${view===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')+
+  (user?`<button class="login" onclick="logout()">Log out</button>`:`<button class="login ${view==='auth'?'on':''}" onclick="go('auth')">Log in</button>`);
 }
-async function go(v){view=v;renderNav();window.scrollTo(0,0);
+async function go(v){view=v;document.body.classList.toggle('home',v==='home');renderNav();window.scrollTo(0,0);
+ const ap=$('app');ap.classList.remove('enter');void ap.offsetWidth;ap.classList.add('enter');
  try{await ({home:vHome,jobs:vJobs,enquire:vEnquire,register:vRegister,dash:vDash,pricing:vPricing,auth:vAuth})[v]();}
- catch(e){app(`<div class="card" style="color:#c92a2a">${errMsg(e)}</div>`)}}
+ catch(e){app(`<div class="card err">${errMsg(e)}</div>`)}}
 async function logout(){await sb.auth.signOut();user=null;go('home')}
 
 /* ---------- AUTH ---------- */
 function vAuth(){
- app(`<h1>Provider login</h1><div class="meta">Tutors and service providers sign in with email and password. Customers do not need an account.</div>
- <div class="card"><div class="row"><input id="au" type="email" placeholder="Email" autocomplete="email"><input id="ap" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password"></div>
- <div id="aerr" class="meta" style="color:#c92a2a;margin:6px 0"></div>
+ app(`<h1>Provider login</h1><p class="sub">Tutors and service providers sign in with email and password. Customers do not need an account.</p>
+ <div class="card" style="margin-top:16px"><div class="row"><input id="au" type="email" placeholder="Email" autocomplete="email"><input id="ap" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"></div>
+ <div id="aerr" class="err" style="margin:6px 0"></div>
  <div class="row"><button class="btn" onclick="doAuth('login')">Log in</button><button class="btn sec" onclick="doAuth('signup')">Create account</button></div></div>`);
 }
 async function doAuth(mode){
@@ -91,86 +208,135 @@ async function doAuth(mode){
  try{
   if(mode==='signup'){
    const {data,error}=await sb.auth.signUp({email,password});if(error)throw error;
-   if(!data.session){$('aerr').style.color='#2b8a3e';$('aerr').textContent='Check your email to confirm your account, then log in.';return}
+   if(!data.session){$('aerr').style.color='#12805c';$('aerr').textContent='Check your email to confirm your account, then log in.';return}
    user=data.user;
   }else{
    const {data,error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;user=data.user;
   }
   go(nextAfterAuth||'dash');
- }catch(e){$('aerr').style.color='#c92a2a';$('aerr').textContent=(e&&e.message)||'Login failed.'}
+ }catch(e){$('aerr').style.color='#b4232f';$('aerr').textContent=(e&&e.message)||'Login failed.'}
 }
-async function requireUser(next){
- if(user)return true;nextAfterAuth=next;await go('auth');return false;
-}
+async function requireUser(next){if(user)return true;nextAfterAuth=next;await go('auth');return false}
 
 /* ---------- HOME / SEARCH ---------- */
 async function vHome(){
- app(`<div class="hero"><h1>Find trusted tutors, repairs & more in Delhi</h1>
- <div class="meta">Local providers. Request a call back in 30 seconds.</div>
- <div class="row" style="margin-top:12px">
-  <input id="q" placeholder="What do you need? e.g. maths" value="${esc(filt.q)}" onkeydown="if(event.key==='Enter')doSearch()">
-  <input id="area" placeholder="Area e.g. Dwarka" value="${esc(filt.area)}" onkeydown="if(event.key==='Enter')doSearch()">
-  <button class="btn" onclick="doSearch()">Search</button></div>
- <div class="chips"><span class="chip ${!filt.cat?'on':''}" onclick="setCat(0)">All</span>${CATS.filter(c=>c.kind!=='job').map(c=>`<span class="chip ${filt.cat==c.id?'on':''}" onclick="setCat(${c.id})">${esc(c.name)}</span>`).join('')}
- <span class="chip" onclick="go('jobs')">Jobs →</span></div></div><div id="results"><div class="meta" style="margin-top:12px">Loading…</div></div>`);
+ const letters=w=>w.split('').map((c,i)=>`<span class="ch"><b style="--i:${i}">${c}</b></span>`).join('');
+ const rows=CATS.filter(c=>c.kind!=='job').map(c=>`<button class="lrow ${filt.cat==c.id?'on':''}" data-cat="${c.id}" style="${lineVars(c.id)}" onclick="setCat(${c.id})"><span>${esc(c.name)}</span><i></i></button>`).join('')+
+  `<button class="lrow" style="${lineVars(5)}" onclick="go('jobs')"><span>Jobs and gigs</span><i></i></button>`;
+ app(`<section class="cine bleed" id="cine"><canvas id="cv" aria-hidden="true"></canvas><div class="inner">
+  <h1 aria-label="Khoj lo"><span aria-hidden="true">${letters('Khoj')}</span> <span aria-hidden="true">${letters('lo.')}</span></h1>
+  <p class="sub">Tutors, repair and jobs near you in Delhi. Ask for a call back. It's free for you.</p>
+  <div class="ask"><span>I need</span><input id="q" aria-label="What you need" placeholder="a maths tutor" value="${esc(filt.q)}" onkeydown="if(event.key==='Enter')doSearch()">
+   <span>near</span><input id="area" aria-label="Your area" placeholder="Dwarka" value="${esc(filt.area)}" onkeydown="if(event.key==='Enter')doSearch()">
+   <button class="btn" onclick="doSearch()">Search</button></div>
+  <div class="stations">Popular areas:${STATIONS.map(s=>`<button onclick="setArea('${s}')">${s}</button>`).join('')}</div></div></section>
+ <section class="dark bleed" aria-label="Browse by category"><h2 style="padding-top:22px">Browse by line</h2>${rows}</section>
+ <div id="results"><p class="mute" style="margin-top:20px">Loading providers…</p></div>
+ <h2>How it works</h2>
+ <div class="steps"><div class="step"><b>Tell us what you need</b><span class="mute">Search above, or post an enquiry with your area and budget.</span></div>
+ <div class="step"><b>We pick the best matches</b><span class="mute">Up to 5 nearby providers get your request.</span></div>
+ <div class="step"><b>They call you</b><span class="mute">Talk, compare, and choose. No fee for customers.</span></div></div>
+ <div class="foot">Khojlo is in beta. Are you a tutor or service provider? <a href="#" onclick="go('register');return false">List your service</a>.</div>`);
+ startCine();
  await showResults();
 }
-function setCat(i){filt.cat=i;vHome()}
-function doSearch(){filt.q=$('q').value;filt.area=$('area').value;showResults()}
+function toResults(){const r=$('results');if(r)r.scrollIntoView({behavior:'smooth',block:'start'})}
+function setCat(i){filt.cat=(filt.cat===i)?0:i;filt.q=$('q').value;filt.area=$('area').value;
+ document.querySelectorAll('.lrow[data-cat]').forEach(b=>b.classList.toggle('on',+b.dataset.cat===filt.cat));
+ showResults().then(toResults)}
+function setArea(a){$('area').value=a;doSearch()}
+function doSearch(){filt.q=$('q').value;filt.area=$('area').value;showResults().then(toResults)}
+
+/* Cursor/touch-reactive route network (original, lightweight 2D canvas) */
+function startCine(){
+ const cv=$('cv'),hero=$('cine');if(!cv||!hero)return;
+ const ctx=cv.getContext('2d');
+ const COLORS=['#f6b800','#e5457f','#7b3fa0','#1b6bd1','#1e9e5a'];
+ const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const dpr=Math.min(window.devicePixelRatio||1,1.5);
+ let W=0,H=0,nodes=[],mx=-999,my=-999,raf=0,on=true;
+ function size(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  const n=Math.round(Math.min(90,Math.max(28,W*H/15000)));
+  nodes=Array.from({length:n},(_,i)=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,c:COLORS[i%5]}))}
+ function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(const p of nodes){
+   if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    const dx=mx-p.x,dy=my-p.y,d=Math.hypot(dx,dy);if(d<170&&d>1){p.x+=dx/d*0.9;p.y+=dy/d*0.9}}}
+  const L=125;
+  for(let i=0;i<nodes.length;i++){const a=nodes[i];
+   for(let j=i+1;j<nodes.length;j++){const b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<L){const near=Math.hypot((a.x+b.x)/2-mx,(a.y+b.y)/2-my)<150;
+     ctx.globalAlpha=(1-d/L)*(near?.95:.38);ctx.strokeStyle=a.c;ctx.lineWidth=near?2.2:1.2;
+     ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}
+  ctx.globalAlpha=.9;
+  for(const p of nodes){ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,2.4,0,6.283);ctx.fill()}
+  ctx.globalAlpha=1;
+ }
+ function loop(){if(!document.body.contains(cv))return;if(on)draw();raf=requestAnimationFrame(loop)}
+ size();draw();
+ if(!reduce)raf=requestAnimationFrame(loop);
+ hero.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;hero.style.setProperty('--mx',mx+'px');hero.style.setProperty('--my',my+'px')});
+ hero.addEventListener('pointerleave',()=>{mx=-999;my=-999});
+ if('IntersectionObserver' in window)new IntersectionObserver(es=>{on=es[0].isIntersecting}).observe(hero);
+ let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(document.body.contains(cv)){size();draw()}},150)});
+}
 async function showResults(){
  let q=sb.from('provider_directory').select('*');
  if(filt.cat)q=q.eq('category_id',filt.cat);
- const a=clean(filt.area),t=clean(filt.q);
+ const a=clean(filt.area),t=clean(filt.q).replace(/^(a|an|the)\s+/i,'');
  if(a)q=q.ilike('area','%'+a+'%');
  if(t)q=q.or(`headline.ilike.%${t}%,name.ilike.%${t}%,subjects.cs.{${t.toLowerCase()}}`);
  const {data,error}=await q.order('plan',{ascending:false}).order('rating_avg',{ascending:false}).limit(50);
- if(error){$('results').innerHTML=`<div class="card" style="color:#c92a2a">${errMsg(error)}</div>`;return}
+ if(error){$('results').innerHTML=`<div class="card err">${errMsg(error)}</div>`;return}
  const list=data||[];
- $('results').innerHTML=`<h2>${list.length} provider${list.length==1?'':'s'}</h2>`+(list.map(p=>`<div class="card">
-  <h3>${esc(p.name)}${p.verified?'<span class="badge">Verified</span>':''}${p.plan==='pro'?'<span class="badge pro">Top listed</span>':''}</h3>
-  <div>${esc(p.headline)}</div>
-  <div class="meta">${esc(catName(p.category_id))} · ${esc(p.area)} · ${p.mode==='both'?'Home & online':esc(p.mode)} · ${esc(p.experience_years)} yrs</div>
-  <div class="meta">${p.rating_count?`<span style="color:#f59f00">${stars(p.rating_avg)}</span> ${esc(p.rating_avg)} (${esc(p.rating_count)})`:'New'}${p.rate_per_hour?` · <span class="price">₹${esc(p.rate_per_hour)}/hr</span>`:''}</div>
-  <div style="margin-top:8px"><button class="btn sm" onclick='callback(${JSON.stringify(p.id)})'>Get call back</button></div></div>`).join('')||'<div class="card">No match. Try <a href="#" onclick="go(\'enquire\');return false">posting an enquiry</a> and we will find someone.</div>');
+ $('results').innerHTML=`<h2>${list.length} provider${list.length==1?'':'s'} found</h2>`+(list.map(p=>`<article class="pcard" style="${lineVars(p.category_id)}">
+  <div class="av" aria-hidden="true">${esc((p.name||'?').trim().charAt(0).toUpperCase())}</div>
+  <div><div class="ptop"><h3>${esc(p.name)}</h3>${p.verified?'<span class="badge ok">✓ Verified</span>':''}${p.plan==='pro'?'<span class="badge top">Top listed</span>':''}</div>
+  <p class="hl">${esc(p.headline)}</p></div>
+  <div class="tags"><span class="tag">${esc(catName(p.category_id))}</span><span class="tag stn">${esc(p.area)}</span><span class="tag">${p.mode==='both'?'Home & online':esc(p.mode)}</span><span class="tag">${esc(p.experience_years)} yrs experience</span></div>
+  <div class="pside">${p.rate_per_hour?`<div class="rate">₹${esc(p.rate_per_hour)}<small>/hr</small></div>`:''}<div class="rt">${p.rating_count?`<b>${stars(p.rating_avg)}</b> (${esc(p.rating_count)} reviews)`:'New on Khojlo'}</div>
+  <button class="btn sm" onclick='callback(${JSON.stringify(p.id)})'>Get call back</button></div></article>`).join('')||'<div class="card">Nobody matches yet. <a href="#" onclick="go(\'enquire\');return false">Post an enquiry</a> and we will find someone for you.</div>');
  window._dir=Object.fromEntries(list.map(p=>[p.id,p]));
 }
 function callback(pid){const p=(window._dir||{})[pid];if(!p)return;
- app(`<h1>Request call back</h1><div class="card"><b>${esc(p.name)}</b><div class="meta">${esc(p.headline)}</div></div>`+enqForm(p.category_id,(p.subjects||[]).join(', '),p.area));
+ app(`<h1>Request a call back</h1><div class="pcard" style="${lineVars(p.category_id)};grid-template-columns:1fr"><div><h3>${esc(p.name)}</h3><p class="hl">${esc(p.headline)}</p></div></div>`+enqForm(p.category_id,(p.subjects||[]).join(', '),p.area));
 }
 
 /* ---------- ENQUIRY ---------- */
 function enqForm(cat,req,area){return `<div class="card"><div class="row">
- <select id="ec">${CATS.filter(c=>c.kind!=='job').map(c=>`<option value="${c.id}" ${c.id==cat?'selected':''}>${esc(c.name)}</option>`).join('')}</select>
- <input id="en" placeholder="Your name"><input id="ep" placeholder="Phone (10 digits)" inputmode="numeric"></div>
- <div class="row" style="margin-top:8px"><input id="ea" placeholder="Area" value="${esc(area||'')}"><input id="eb" placeholder="Budget ₹ (optional)" inputmode="numeric"></div>
- <textarea id="er" style="margin-top:8px" placeholder="What do you need? e.g. Class 10 maths, 3 days a week">${esc(req||'')}</textarea>
- <div id="eerr" class="meta" style="color:#c92a2a"></div>
- <button class="btn" id="esub" onclick="submitEnq()">Submit enquiry</button></div><div id="eres"></div>`}
-function vEnquire(){app(`<h1>Tell us what you need</h1><div class="meta">We send your enquiry to the best matching providers.</div>`+enqForm(1,'',''))}
+ <select id="ec" aria-label="Category">${CATS.filter(c=>c.kind!=='job').map(c=>`<option value="${c.id}" ${c.id==cat?'selected':''}>${esc(c.name)}</option>`).join('')}</select>
+ <input id="en" placeholder="Your name" autocomplete="name"><input id="ep" placeholder="Phone (10 digits)" inputmode="numeric" autocomplete="tel"></div>
+ <div class="row" style="margin-top:10px"><input id="ea" placeholder="Area" value="${esc(area||'')}"><input id="eb" placeholder="Budget in ₹ (optional)" inputmode="numeric"></div>
+ <textarea id="er" style="margin-top:10px" placeholder="What do you need? e.g. Class 10 maths, 3 days a week">${esc(req||'')}</textarea>
+ <div id="eerr" class="err"></div>
+ <button class="btn" id="esub" onclick="submitEnq()">Send enquiry</button></div><div id="eres"></div>`}
+function vEnquire(){app(`<h1>Tell us what you need</h1><p class="sub">We send your request to the best matching providers nearby. They call you.</p>`+enqForm(1,'',''))}
 async function submitEnq(){
  const name=$('en').value.trim(),phone=$('ep').value.replace(/\D/g,''),req=$('er').value.trim();
- if(name.length<2||phone.length!==10||req.length<5){$('eerr').textContent='Enter your name, a 10-digit phone and a short requirement.';return}
+ if(name.length<2||phone.length!==10||req.length<5){$('eerr').textContent='Enter your name, a 10-digit phone number and a short description of what you need.';return}
  $('eerr').textContent='';$('esub').disabled=true;
  const {data,error}=await sb.rpc('submit_enquiry',{p_category:+$('ec').value,p_name:name,p_phone:phone,p_requirement:req,p_area:$('ea').value.trim(),p_budget:+$('eb').value||null});
  $('esub').disabled=false;
  if(error){$('eerr').textContent=error.message;return}
  const m=(data&&data.matched)||[];
- $('eres').innerHTML=`<div class="card"><div class="ok">Sent to ${m.length} provider${m.length==1?'':'s'}.</div><div class="meta">They will call you on ${esc(phone)}.</div>${m.map(p=>`<div>• ${esc(p.name)} – ${esc(p.area)}</div>`).join('')||'<div class="meta">No provider matched yet. We will keep your request.</div>'}</div>`;
+ $('eres').innerHTML=`<div class="card"><div class="ok">Sent to ${m.length} provider${m.length==1?'':'s'}.</div><p class="mute">They will call you on ${esc(phone)}.</p>${m.map(p=>`<div>${esc(p.name)}, ${esc(p.area)}</div>`).join('')||'<p class="mute">Nobody matches yet. We have saved your request.</p>'}</div>`;
 }
 
 /* ---------- JOBS ---------- */
 async function vJobs(){
  const {data,error}=await sb.from('jobs').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);
  if(error)throw error;
- app(`<h1>Jobs & gigs</h1><div class="meta">Hawker, delivery, repair helper and more.</div>
- ${(data||[]).map(j=>`<div class="card"><h3>${esc(j.title)}</h3><div>${esc(j.description)}</div><div class="meta">${esc(catName(j.category_id))} · ${esc(j.area)} · <b>${esc(j.pay_text)}</b></div><div class="meta">Contact: ${esc(j.contact_phone)}</div></div>`).join('')||'<div class="card meta">No jobs yet.</div>'}
- <h2>Post a job</h2><div class="card"><div class="row"><input id="jt" placeholder="Job title"><select id="jc">${CATS.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
- <div class="row" style="margin-top:8px"><input id="ja" placeholder="Area"><input id="jp" placeholder="Pay e.g. ₹10,000/mo"><input id="jph" placeholder="Contact phone (10 digits)" inputmode="numeric"></div>
- <textarea id="jd" style="margin-top:8px" placeholder="Details"></textarea><div id="jerr" class="meta" style="color:#c92a2a"></div><button class="btn" onclick="postJob()">Post job</button></div>`);
+ app(`<h1>Jobs and gigs</h1><p class="sub">Hawker, delivery, repair helper and more, near you.</p>
+ ${(data||[]).map(j=>`<article class="pcard" style="${lineVars(j.category_id)};grid-template-columns:1fr"><div><h3>${esc(j.title)}</h3><p class="hl">${esc(j.description)}</p>
+ <div class="tags" style="grid-column:1"><span class="tag">${esc(catName(j.category_id))}</span><span class="tag stn">${esc(j.area)}</span><span class="tag"><b>${esc(j.pay_text)}</b></span><span class="tag">Call ${esc(j.contact_phone)}</span></div></div></article>`).join('')||'<div class="card mute">No jobs posted yet.</div>'}
+ <h2>Post a job</h2><div class="card"><div class="row"><input id="jt" placeholder="Job title"><select id="jc" aria-label="Category">${CATS.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
+ <div class="row" style="margin-top:10px"><input id="ja" placeholder="Area"><input id="jp" placeholder="Pay, e.g. ₹10,000/mo"><input id="jph" placeholder="Contact phone (10 digits)" inputmode="numeric"></div>
+ <textarea id="jd" style="margin-top:10px" placeholder="Details"></textarea><div id="jerr" class="err"></div><button class="btn" onclick="postJob()">Post job</button></div>`);
 }
 async function postJob(){
  const t=$('jt').value.trim(),ph=$('jph').value.replace(/\D/g,'');
- if(t.length<3||ph.length!==10){$('jerr').textContent='Add a title and a 10-digit contact phone.';return}
+ if(t.length<3||ph.length!==10){$('jerr').textContent='Add a job title and a 10-digit contact phone.';return}
  const {error}=await sb.from('jobs').insert({category_id:+$('jc').value,title:t,description:$('jd').value.trim(),area:$('ja').value.trim(),pay_text:$('jp').value.trim(),contact_phone:ph});
  if(error){$('jerr').textContent=error.message;return}
  vJobs();
@@ -183,21 +349,21 @@ const STEPS=[
  {k:'category',q:'What do you offer? Say one: tutor, admission consultant, assignment help, repair.'},
  {k:'subjects',q:'Which subjects or services? e.g. maths, physics, JEE'},
  {k:'area',q:'Which area of Delhi are you based in?'},
- {k:'mode',q:'Do you teach/serve at home, online, or both?'},
+ {k:'mode',q:'Do you teach or serve at home, online, or both?'},
  {k:'rate',q:'Your rate per hour in rupees? (say 0 if not applicable)'},
  {k:'exp',q:'How many years of experience?'},
- {k:'bio',q:'Last one: tell parents/customers about yourself in a sentence or two.'}];
+ {k:'bio',q:'Last one: tell parents and customers about yourself in a sentence or two.'}];
 let draft={},si=0,rec=null;
 const nums=s=>{const m=String(s).replace(/,/g,'').match(/\d+/);return m?+m[0]:NaN};
 async function vRegister(){
  if(!await requireUser('register'))return;
  const {data:mine}=await sb.from('providers').select('id').eq('user_id',user.id).maybeSingle();
  if(mine){return go('dash')}
- app(`<h1>List your service</h1><div class="meta">Talk or type. Our assistant builds your profile. Free to list, 3 free leads, then ₹499/month.</div>
- <div class="chat" id="chat" style="margin-top:10px"></div>
- <div class="row" style="margin-top:8px"><input id="ci" placeholder="Type your answer" onkeydown="if(event.key==='Enter')send()">
+ app(`<h1>List your service</h1><p class="sub">Talk or type. Our assistant builds your profile. Free to list, 3 free leads, then ₹499 a month.</p>
+ <div class="chat" id="chat" style="margin-top:14px"></div>
+ <div class="row" style="margin-top:10px"><input id="ci" placeholder="Type your answer" aria-label="Your answer" onkeydown="if(event.key==='Enter')send()">
  <button class="btn sec" id="mic" onclick="mic()">🎤 Speak</button><button class="btn" onclick="send()">Send</button></div>
- <div id="regout"></div><div class="meta" style="margin-top:6px">Voice needs Chrome or Safari with microphone permission. Hindi and English both work.</div>`);
+ <div id="regout"></div><p class="mute" style="margin-top:8px;font-size:14px">Voice works in Chrome and Safari once you allow the microphone. Hindi and English both work.</p>`);
  draft={};si=0;say(STEPS[0].q,'bot');
 }
 function say(t,who){const c=$('chat');if(!c)return;c.insertAdjacentHTML('beforeend',`<div class="msg ${who}">${esc(t)}</div>`);c.scrollTop=c.scrollHeight}
@@ -206,19 +372,19 @@ function mic(){
  if(!SR){say('Voice is not available in this browser. Please type your answer.','bot');return}
  try{rec=new SR();rec.lang='en-IN';rec.interimResults=false;
   rec.onresult=e=>{$('ci').value=e.results[0][0].transcript;send()};
-  rec.onerror=()=>say('Could not hear you. Please type instead.','bot');
+  rec.onerror=()=>say('I could not hear you. Please type instead.','bot');
   rec.onend=()=>{$('mic').textContent='🎤 Speak'};
   rec.start();$('mic').textContent='Listening…';
- }catch(e){say('Microphone is blocked. Please type your answer.','bot')}
+ }catch(e){say('The microphone is blocked. Please type your answer.','bot')}
 }
 function send(){
  const v=$('ci').value.trim();if(!v||si>=STEPS.length)return;$('ci').value='';
  const s=STEPS[si];let val=v,err='';
  if(s.k==='phone'){val=v.replace(/\D/g,'').slice(-10);if(val.length!==10)err='Please give a 10-digit number.'}
- if(s.k==='category'){const l=v.toLowerCase();const c=l.includes('admission')||l.includes('consult')?2:l.includes('assign')?3:l.includes('repair')?4:l.includes('tutor')||l.includes('teach')?1:0;if(!c)err='Please say tutor, admission consultant, assignment help or repair.';val=c}
+ if(s.k==='category'){const l=v.toLowerCase();const slug=l.includes('admission')||l.includes('consult')?'admission-consultant':l.includes('assign')?'assignment-help':l.includes('repair')?'repair':l.includes('tutor')||l.includes('teach')?'tutor':'';const c=(CATS.find(x=>x.slug===slug)||{}).id||0;if(!c)err='Please say tutor, admission consultant, assignment help or repair.';val=c}
  if(s.k==='subjects')val=v.toLowerCase().split(/,|\band\b|\baur\b/).map(x=>x.trim()).filter(Boolean).slice(0,12);
  if(s.k==='mode'){const l=v.toLowerCase();val=l.includes('both')||(l.includes('home')&&l.includes('online'))?'both':l.includes('online')?'online':l.includes('home')?'home':'';if(!val)err='Say home, online or both.'}
- if(s.k==='rate'||s.k==='exp'){val=nums(v);if(isNaN(val))err='Please give a number.';else if(s.k==='rate'&&val>100000)err='That looks too high. Rate per hour in rupees?'}
+ if(s.k==='rate'||s.k==='exp'){val=nums(v);if(isNaN(val))err='Please give a number.';else if(s.k==='rate'&&val>100000)err='That looks too high. What is your rate per hour in rupees?'}
  if(s.k==='name'&&v.length<2)err='Please give your name.';
  say(v,'me');
  if(err){say(err,'bot');return}
@@ -226,38 +392,40 @@ function send(){
  if(si<STEPS.length)say(STEPS[si].q,'bot');else finishReg();
 }
 function finishReg(){
- const d=draft;say('Great! Here is your profile. Review and publish.','bot');
- $('regout').innerHTML=`<div class="card"><h3>${esc(d.name)}</h3><div>${esc(d.subjects.join(', '))}</div><div class="meta">${esc(catName(d.category))} · ${esc(d.area)} · ${esc(d.mode)} · ${esc(d.exp)} yrs${d.rate?` · ₹${esc(d.rate)}/hr`:''}</div><div>${esc(d.bio)}</div>
- <div class="warn" style="margin:8px 0">Includes 3 free leads. After that, ₹499/month for unlimited leads and top listing.</div>
- <div id="perr" class="meta" style="color:#c92a2a"></div><button class="btn" onclick="publish()">Publish my profile</button></div>`;
+ const d=draft;say('Great! Here is your profile. Review it and publish.','bot');
+ $('regout').innerHTML=`<article class="pcard" style="${lineVars(d.category)};grid-template-columns:1fr;margin-top:14px"><div><h3>${esc(d.name)}</h3><p class="hl">${esc(d.subjects.join(', '))}</p>
+ <div class="tags" style="grid-column:1"><span class="tag">${esc(catName(d.category))}</span><span class="tag stn">${esc(d.area)}</span><span class="tag">${esc(d.mode)}</span><span class="tag">${esc(d.exp)} yrs experience</span>${d.rate?`<span class="tag"><b>₹${esc(d.rate)}/hr</b></span>`:''}</div><p style="margin-top:8px">${esc(d.bio)}</p></div></article>
+ <div class="warn" style="margin:10px 0">Includes 3 free leads. After that, ₹499 a month for unlimited leads and top listing.</div>
+ <div id="perr" class="err"></div><button class="btn" onclick="publish()">Publish my profile</button>`;
 }
 async function publish(){
  const d=draft;
  const {error}=await sb.from('providers').insert({user_id:user.id,category_id:d.category,name:d.name,phone:d.phone,headline:d.subjects.slice(0,3).join(', '),bio:d.bio,subjects:d.subjects,area:d.area,mode:d.mode,rate_per_hour:d.rate,experience_years:d.exp});
  if(error){$('perr').textContent=error.code==='23505'?'You already have a profile.':error.message;return}
- $('regout').innerHTML=`<div class="card"><div class="ok">You are live!</div><div class="meta">Check your dashboard for leads.</div><button class="btn" onclick="go('dash')">Open dashboard</button></div>`;
+ $('regout').innerHTML=`<div class="card"><div class="ok">You are live!</div><p class="mute">Customers can find you now. Leads will appear on your dashboard.</p><button class="btn" onclick="go('dash')">Open dashboard</button></div>`;
 }
 
 /* ---------- DASHBOARD ---------- */
 async function vDash(){
  if(!await requireUser('dash'))return;
  const {data:p}=await sb.from('providers').select('*').eq('user_id',user.id).maybeSingle();
- if(!p){app(`<h1>Dashboard</h1><div class="card">You have no provider profile yet. <button class="btn sm" onclick="go('register')">Create profile</button></div>`);return}
+ if(!p){app(`<h1>Dashboard</h1><div class="card">You have no provider profile yet. <button class="btn sm" onclick="go('register')">Create your profile</button></div>`);return}
  const {data:ls,error}=await sb.rpc('my_leads');if(error)throw error;
  const pro=p.plan==='pro'&&(!p.plan_expires_at||new Date(p.plan_expires_at)>new Date());
- app(`<h1>Dashboard</h1><div class="card"><h3>${esc(p.name)} ${pro?'<span class="badge pro">Pro</span>':''}</h3>
- <div class="meta">${pro?'Unlimited leads and top listing.':`Free leads left: <b>${esc(p.free_leads_left)}</b>`}</div>
- ${pro?'':'<button class="btn sm" style="margin-top:6px" onclick="go(\'pricing\')">Upgrade ₹499/mo</button>'}</div>
- <h2>Leads (${(ls||[]).length})</h2>`+((ls||[]).map(l=>`<div class="card"><div><b>${esc(l.requirement)}</b></div><div class="meta">${esc(catName(l.category_id))} · ${esc(l.area||'')}${l.budget?` · budget ₹${esc(l.budget)}`:''}</div>
- <div>${l.unlocked?`<span class="ok">${esc(l.customer_name)} – ${esc(l.customer_phone)}</span>`:`<span class="lock">Customer name – 98xxx xxxxx</span> <button class="btn sm" onclick="go('pricing')">Unlock</button>`}</div></div>`).join('')||'<div class="card meta">No leads yet. They appear here when customers post matching enquiries.</div>'));
+ app(`<h1>Dashboard</h1><div class="card"><h3>${esc(p.name)} ${pro?'<span class="badge top">Pro</span>':''}</h3>
+ <p class="mute">${pro?'Unlimited leads and top listing.':`Free leads left: <b>${esc(p.free_leads_left)}</b>`}</p>
+ ${pro?'':'<button class="btn sm" style="margin-top:8px" onclick="go(\'pricing\')">Upgrade for ₹499 a month</button>'}</div>
+ <h2>Leads (${(ls||[]).length})</h2>`+((ls||[]).map(l=>`<article class="pcard" style="${lineVars(l.category_id)};grid-template-columns:1fr"><div><h3>${esc(l.requirement)}</h3>
+ <div class="tags" style="grid-column:1"><span class="tag">${esc(catName(l.category_id))}</span>${l.area?`<span class="tag stn">${esc(l.area)}</span>`:''}${l.budget?`<span class="tag">Budget ₹${esc(l.budget)}</span>`:''}</div>
+ <p style="margin-top:8px">${l.unlocked?`<span class="ok">${esc(l.customer_name)}, ${esc(l.customer_phone)}</span>`:`<span class="lock">Customer name, 98xxx xxxxx</span> <button class="btn sm" onclick="go('pricing')">Unlock</button>`}</p></div></article>`).join('')||'<div class="card mute">No leads yet. They appear here when customers post matching enquiries.</div>'));
 }
 
 /* ---------- PRICING ---------- */
 function vPricing(){
- app(`<h1>Pricing for providers</h1><div class="grid">
- <div class="card"><h3>Free</h3><div class="price">₹0</div><ul><li>Profile listing</li><li>3 free leads</li><li>Normal ranking</li></ul></div>
- <div class="price-card"><h3>Pro</h3><div class="price">₹499 / month</div><ul><li>Unlimited student & customer leads</li><li>Top listing + “Top listed” badge</li><li>WhatsApp lead alerts (coming soon)</li><li>Priority verification</li></ul>
- <div class="warn">Online payment is coming soon. To activate Pro now, contact us and we will switch it on for your account.</div></div></div>`);
+ app(`<h1>Pricing for providers</h1><p class="sub">Listing is free. Pay only if you want every lead.</p><div class="grid" style="margin-top:16px">
+ <div class="plan"><h3>Free</h3><div class="price">₹0</div><ul><li>Your profile in search</li><li>3 free leads</li><li>Standard ranking</li></ul></div>
+ <div class="plan pro"><h3>Pro</h3><div class="price">₹499 <small class="mute" style="font:600 15px Mukta">a month</small></div><ul><li>Every lead, with the customer's number</li><li>Top of search, with a Top listed badge</li><li>WhatsApp lead alerts (coming soon)</li><li>Faster verification</li></ul>
+ <div class="warn">Online payment is coming soon. Contact us and we will switch Pro on for your account.</div></div></div>`);
 }
 
 /* ---------- START ---------- */
