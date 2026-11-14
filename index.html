@@ -434,8 +434,9 @@ function vPricing(){
  sb.auth.onAuthStateChange((_e,s)=>{user=s?s.user:null;renderNav()});
  try{const {data}=await sb.from('categories').select('*').order('id');CATS=data||[]}catch(e){}
  const P=new URLSearchParams(location.search);filt.q=P.get('q')||'';filt.area=P.get('area')||'';
+ const C=CATS.find(x=>x.slug===P.get('cat'));if(C)filt.cat=C.id;
  const V=P.get('view');go(['home','jobs','enquire','register','dash','pricing','auth'].includes(V)?V:'home');
- if(filt.q||filt.area)setTimeout(()=>{const r=$('results');if(r)r.scrollIntoView()},600);
+ if(filt.q||filt.area||filt.cat)setTimeout(()=>{const r=$('results');if(r)r.scrollIntoView()},600);
 })();
 </script>
 </body>
